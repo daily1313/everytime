@@ -25,6 +25,6 @@ public class SignUpRequestDto {
     @ApiModelProperty(value = "사용자 이름", notes = "사용자 이름은 한글 또는 알파벳으로 입력해주세요.", required = true, example = "김승범")
     @NotBlank(message = "사용자 이름을 입력해주세요.")
     @Size(min = 2, message = "사용자 이름이 너무 짧습니다.")
-    private String nickname;
+    private String name;
 
 }

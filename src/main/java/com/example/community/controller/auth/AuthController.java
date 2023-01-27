@@ -28,17 +28,17 @@ public class AuthController {
 
     @ApiOperation(value = "회원가입", notes = "회원가입 진행")
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/sign-up")
+    @PostMapping("/join")
     public Response register(@Valid @RequestBody SignUpRequestDto signUpRequestDto) {
-        authService.signup(signUpRequestDto);
+        authService.join(signUpRequestDto);
         return success();
     }
 
-    @ApiOperation(value = "로그인", notes = "로그인을 한다.")
-    @PostMapping("/sign-in")
+    @ApiOperation(value = "로그인", notes = "커뮤니티 로그인")
+    @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
-    public Response signIn(@Valid @RequestBody LoginRequestDto req) {
-        return success(authService.signIn(req));
+    public Response login(@Valid @RequestBody LoginRequestDto req) {
+        return success(authService.login(req));
     }
 
     @ApiOperation(value = "토큰 재발급", notes = "토큰 재발급 요청")

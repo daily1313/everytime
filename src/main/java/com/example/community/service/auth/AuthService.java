@@ -32,14 +32,14 @@ public class AuthService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Transactional
-    public void signup(SignUpRequestDto req) {
+    public void join(SignUpRequestDto req) {
         validateSignUpInfo(req);
         Member member = createSignupFormOfUser(req);
         memberRepository.save(member);
     }
 
     @Transactional
-    public TokenResponseDto signIn(LoginRequestDto req) {
+    public TokenResponseDto login(LoginRequestDto req) {
         Member member = memberRepository.findByUsername(req.getUsername()).orElseThrow(() -> {
             throw new LoginFailureException();
         });
@@ -87,7 +87,7 @@ public class AuthService {
         Member member = Member.builder()
                 .username(req.getUsername())
                 .password(passwordEncoder.encode(req.getPassword()))
-                .nickname(req.getNickname())
+                .name(req.getName())
                 .role(Role.ROLE_USER)
                 .build();
         return member;
