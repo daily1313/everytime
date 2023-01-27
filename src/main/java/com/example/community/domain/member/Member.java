@@ -1,6 +1,8 @@
 package com.example.community.domain.member;
 
 
+import com.example.community.domain.common.EntityDate;
+import com.example.community.dto.member.MemberRequestDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +23,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Builder
-public class Member {
+public class Member extends EntityDate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,6 +37,9 @@ public class Member {
 
 
     @Column(nullable = false, unique = true)
+    private String name;
+
+    @Column(nullable = false, unique = true)
     private String nickname;
 
     @Enumerated(EnumType.STRING)
@@ -43,12 +48,18 @@ public class Member {
 
 
     @Builder
-    public Member(String username, String password, Role role) {
+    public Member(String username, String password, Role role, String name) {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.name = name;
     }
 
+    public void editMember(MemberRequestDto memberRequestDto) {
+        name = memberRequestDto.getName();
+        password = memberRequestDto.getPassword();
+        nickname = memberRequestDto.getNickname();
+    }
 
 
 
