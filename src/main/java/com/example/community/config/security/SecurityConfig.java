@@ -8,6 +8,7 @@ import com.example.community.config.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -65,7 +66,21 @@ public class SecurityConfig {
                 // 로그인, 회원가입 API 는 토큰이 없는 상태에서 요청이 들어오기 때문에 permitAll 설정
                 .and()
                 .authorizeHttpRequests()
-                .antMatchers("/api/**").permitAll()
+                .antMatchers("/swagger-ui/**", "/v3/**").permitAll() // swagger
+                .antMatchers("/api/join", "/api/login", "/api/reissue").permitAll()
+
+                .antMatchers(HttpMethod.GET, "/api/members").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/members/{id}").hasAnyAuthority( "ROLE_USER", "ROLE_ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/member/{username}").hasAnyAuthority( "ROLE_USER", "ROLE_ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/members/{id}").hasAnyAuthority( "ROLE_USER", "ROLE_ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/members/{id}").hasAnyAuthority( "ROLE_USER", "ROLE_ADMIN")
+
+                .antMatchers(HttpMethod.POST, "/api/boards").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/boards/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/boards/{id}").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/boards/{id}").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/boards/{id}").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/boards/{id}").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                 .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
 
                 // JwtFilter 를 addFilterBefore 로 등록했던 JwtSecurityConfig 클래스를 적용
