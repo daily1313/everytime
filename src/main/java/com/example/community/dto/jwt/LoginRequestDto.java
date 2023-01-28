@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Data
 @ApiModel(value = "로그인 요청")
 public class LoginRequestDto {
-    @ApiModelProperty(value = "아이디", notes = "아이디를 입력해주세요", required = true, example = "kimtaesoo")
+    @ApiModelProperty(value = "아이디", notes = "아이디를 입력해주세요", required = true, example = "kimseungbeom")
     @NotBlank(message = "{LoginRequestDto.username.notBlank}")
     private String username;
 

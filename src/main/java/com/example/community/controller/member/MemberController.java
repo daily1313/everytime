@@ -40,15 +40,15 @@ public class MemberController {
 
     @ApiOperation(value = "단건 회원 조회", notes = "회원 한 명을 조회합니다.")
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/members/{memberId}")
-    public Response findMember(@PathVariable Long memberId) {
-        return Response.success(memberService.findMember(memberId));
+    @GetMapping("/members/{id}")
+    public Response findMember(@PathVariable("id") Long id) {
+        return Response.success(memberService.findMember(id));
     }
 
     @ApiOperation(value = "단건 회원 조회(이름으로 조회)", notes = "회원 한 명을 조회합니다.")
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/members/{username}")
-    public Response findMemberByNickname(@PathVariable String username) {
+    @GetMapping("/member/{username}")
+    public Response findMemberByUsername(@PathVariable("username") String username) {
         return Response.success(memberService.findMemberByUsername(username));
     }
 

@@ -33,16 +33,16 @@ public class MemberService {
 
     // 회원 단건 조회
     @Transactional(readOnly = true)
-    public MemberResponseDto findMember(Long memberId) {
-        Member member = memberRepository.findById(memberId).orElseThrow(UserNotFoundException::new);
+    public MemberResponseDto findMember(Long id) {
+        Member member = memberRepository.findById(id).orElseThrow(UserNotFoundException::new);
         return MemberResponseDto.toDto(member);
     }
 
     // 회원 단건 조회(이름으로 조회)
     @Transactional(readOnly = true)
     public MemberResponseDto findMemberByUsername(String username) {
-        Member member = memberRepository.findByUsername(username).orElseThrow(UserNotFoundException::new);
-        return MemberResponseDto.toDto(member);
+        Member member2 = memberRepository.findByUsername(username).orElseThrow(UserNotFoundException::new);
+        return MemberResponseDto.toDto(member2);
     }
 
     // 회원 수정

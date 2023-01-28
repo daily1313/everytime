@@ -47,7 +47,7 @@ public class AuthControllerTest {
     public void joinTest() throws Exception {
 
         //given
-        SignUpRequestDto signUpRequestDto = new SignUpRequestDto("kimsb7218", "1234", "김승범");
+        SignUpRequestDto signUpRequestDto = new SignUpRequestDto("kimsb7218", "1234", "김승범","김승범21");
 
         //when
         mockMvc.perform(

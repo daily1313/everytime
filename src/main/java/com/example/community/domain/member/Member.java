@@ -48,11 +48,12 @@ public class Member extends EntityDate {
 
 
     @Builder
-    public Member(String username, String password, Role role, String name) {
+    public Member(String username, String password, Role role, String name, String nickname) {
         this.username = username;
         this.password = password;
         this.role = role;
         this.name = name;
+        this.nickname = nickname;
     }
 
     public void editMember(MemberRequestDto memberRequestDto) {
