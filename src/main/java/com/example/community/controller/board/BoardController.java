@@ -65,6 +65,36 @@ public class BoardController {
         return Response.success(boardService.editBoard(id, req, member));
     }
 
+    @ApiOperation(value = "게시글 좋아요", notes = "사용자가 좋아요를 눌렀습니다.")
+    @PostMapping("/boards/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Response likeBoard(@PathVariable("id") Long id) {
+        Member member = getPrincipal();
+        return Response.success(boardService.updateLike(id, member));
+    }
+
+    @ApiOperation(value = "게시글 즐겨찾기", notes = "사용자가 즐겨찾기를 눌렀습니다.")
+    @PostMapping("/boards/{id}/favorites")
+    @ResponseStatus(HttpStatus.OK)
+    public Response favoriteBoard(@PathVariable("id") Long id) {
+        Member member = getPrincipal();
+        return Response.success(boardService.updateFavorite(id, member));
+    }
+
+    @ApiOperation(value = "즐겨찾기 게시판을 조회", notes = "즐겨찾기로 등록한 게시판을 조회합니다.")
+    @GetMapping("/boards/favorites")
+    @ResponseStatus(HttpStatus.OK)
+    public Response findAllFavoriteBoards(Integer page) {
+        return Response.success(boardService.findAllFavoriteBoards(page, getPrincipal()));
+    }
+
+    @ApiOperation(value = "좋아요가 많은 순으로 게시판조회", notes = "게시판을 좋아요순으로 조회합니다.")
+    @GetMapping("/boards/likes")
+    @ResponseStatus(HttpStatus.OK)
+    public Response findAllBoardsWithLikes(Integer page) {
+        return Response.success(boardService.findAllBoardsInTheOrderOfHighNumbersOfLikes(page));
+    }
+
     @ApiOperation(value = "게시글 삭제", notes = "게시글을 삭제합니다.")
     @DeleteMapping("/boards/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -77,10 +107,10 @@ public class BoardController {
     @ApiOperation(value = "게시글 검색", notes = "게시글을 검색합니다.")
     @GetMapping("/boards/search/{keyword}")
     @ResponseStatus(HttpStatus.OK)
-    public Response searchBoard(@PathVariable String keyword,  @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+    public Response searchBoard(@PathVariable String keyword,
+                                @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return Response.success(boardService.searchBoard(keyword, pageable));
     }
-
 
 
     private Member getPrincipal() {

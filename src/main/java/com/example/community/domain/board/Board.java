@@ -54,12 +54,19 @@ public class Board extends EntityDate {
     orphanRemoval = true)
     private List<Image> images;
 
+    // 좋아요 수
+    private int likeCount;
+    // 조회 수
+    private int viewCount;
+
     @Builder
     public Board(String title, String content, Member member, List<Image> images)
     {
         this.title = title;
         this.content = content;
         this.member = member;
+        this.likeCount = 0;
+        this.viewCount = 0;
         this.images = new ArrayList<>();
         addImages(images);
     }
@@ -106,7 +113,17 @@ public class Board extends EntityDate {
         return imageFiles.stream().map(imageFile -> new Image(imageFile.getOriginalFilename())).collect(toList());
     }
 
+    public void increaseLikeCount() {
+        this.likeCount += 1;
+    }
 
+    public void decreaseLikeCount() {
+        this.likeCount -= 1;
+    }
+
+    public void increaseViewCount() {
+        this.viewCount += 1;
+    }
 
     @Getter
     @AllArgsConstructor

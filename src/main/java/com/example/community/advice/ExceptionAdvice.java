@@ -2,7 +2,11 @@ package com.example.community.advice;
 
 
 import com.example.community.exception.BoardNotFoundException;
+import com.example.community.exception.FavoriteNotFoundException;
+import com.example.community.exception.FileUploadFailureException;
 import com.example.community.exception.LoginFailureException;
+import com.example.community.exception.MemberNotEqualsException;
+import com.example.community.exception.UnsupportedImageFormatException;
 import com.example.community.exception.UserNotFoundException;
 import com.example.community.exception.UsernameAlreadyExistException;
 import com.example.community.exception.WriterNotFoundException;
@@ -60,6 +64,39 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.CONFLICT)
     public Response memberEmailAlreadyExistsException(UsernameAlreadyExistException e) {
         return Response.failure(409, e.getMessage() + "은 중복된 아이디 입니다.");
+    }
+
+    // 404 응답
+    // Image 형식 지원하지 않음
+    @ExceptionHandler(UnsupportedImageFormatException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Response unsupportedImageFormatException() {
+        return Response.failure(404, "이미지 형식을 지원하지 않습니다.");
+    }
+
+    // 404 응답
+    // 파일 업로드 실패
+    @ExceptionHandler(FileUploadFailureException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Response fileUploadFailureException(FileUploadFailureException e) {
+        log.error("e = {}", e.getMessage());
+        return Response.failure(404, "이미지 업로드 실패");
+    }
+
+    // 401 응답
+    // 요청자와 요청한 유저의 정보가 일치하지 않을시에 발생
+    @ExceptionHandler(MemberNotEqualsException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public Response memberNotEqualsException() {
+        return Response.failure(401, "유저 정보가 일치하지 않습니다.");
+    }
+
+    // 404 응답
+    // 요청한 Favorite 찾을 수 없음
+    @ExceptionHandler(FavoriteNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Response favoriteNotFoundException() {
+        return Response.failure(404, "요청한 즐겨찾기를 찾을 수 없습니다.");
     }
 
 }
