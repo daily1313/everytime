@@ -6,6 +6,7 @@ import com.example.community.exception.FavoriteNotFoundException;
 import com.example.community.exception.FileUploadFailureException;
 import com.example.community.exception.LoginFailureException;
 import com.example.community.exception.MemberNotEqualsException;
+import com.example.community.exception.MessageNotFoundException;
 import com.example.community.exception.UnsupportedImageFormatException;
 import com.example.community.exception.UserNotFoundException;
 import com.example.community.exception.UsernameAlreadyExistException;
@@ -99,4 +100,11 @@ public class ExceptionAdvice {
         return Response.failure(404, "요청한 즐겨찾기를 찾을 수 없습니다.");
     }
 
+    // 404 응답
+    // 요청한 Message를 찾을 수 없음
+    @ExceptionHandler(MessageNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Response messageNotFountException() {
+        return Response.failure(404, "메시지를 찾을 수 없습니다.");
+    }
 }

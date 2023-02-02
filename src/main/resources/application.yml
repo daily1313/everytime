@@ -19,9 +19,14 @@ spring:
       matching-strategy: ant_path_matcher
   jpa:
     hibernate:
-      ddl-auto: create #create update none
+      ddl-auto: update #create update none
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
+  servlet:
+    multipart:
+      max-request-size: 10MB
+      max-file-size: 10MB
+#  springboot 파일 업로드 용량 확장
 jwt:
   secret: c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK

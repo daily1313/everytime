@@ -15,7 +15,7 @@ public class PageDto {
     private int numberOfElements; // 현재 페이지에 나올 데이터 수
     private boolean isNext; // 다음 페이지 존재 여부
 
-    public PageDto(Page<Board> result) {
+    public PageDto(Page result) {
         this.totalPage = result.getTotalPages();
         this.nowPage = result.getNumber();
         this.numberOfElements = result.getNumberOfElements();
