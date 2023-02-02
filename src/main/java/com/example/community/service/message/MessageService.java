@@ -23,6 +23,7 @@ public class MessageService {
     private final MemberRepository memberRepository;
 
     // 쪽지 작성
+    //
     @Transactional
     public MessageResponseDto createMessage(Member sender, MessageCreateRequestDto req) {
         Member receiver = memberRepository.findByUsername(req.getReceiverUsername()).orElseThrow(

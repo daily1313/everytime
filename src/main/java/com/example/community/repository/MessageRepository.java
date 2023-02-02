@@ -1,5 +1,5 @@
 package com.example.community.repository;
-
+//
 import com.example.community.domain.member.Member;
 import com.example.community.domain.message.Message;
 import java.util.List;
