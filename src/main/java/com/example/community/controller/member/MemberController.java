@@ -70,7 +70,7 @@ public class MemberController {
     }
 
 
-    // 유저 정보르 가져오는 getPrincipal 함수
+    // 유저 정보를 가져오는 getPrincipal 함수
     public Member getPrincipal() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Member member = memberRepository.findByUsername(authentication.getName())
