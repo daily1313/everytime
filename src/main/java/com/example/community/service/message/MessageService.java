@@ -92,7 +92,7 @@ public class MessageService {
         return MessageResponseDto.toDto(message);
     }
 
-    // 메세지 삭제(수신자에 의해 삭제)
+    // 메세지 삭제
     @Transactional(readOnly = true)
     public void deleteMessageByReceiver(Long id, Member member) {
         Message message = messageRepository.findById(id).orElseThrow(MessageNotFoundException::new);
@@ -108,7 +108,7 @@ public class MessageService {
     }
 
     // 메세지 삭제(발신자에 의해 삭제)
-    @Transactional(readOnly = true)
+    @Transactional
     public void deleteMessageBySender(Long id, Member member) {
         Message message = messageRepository.findById(id).orElseThrow(MessageNotFoundException::new);
         if (!message.getSender().equals(member)) {
