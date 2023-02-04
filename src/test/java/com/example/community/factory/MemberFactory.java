@@ -15,4 +15,15 @@ public class MemberFactory {
                 .build();
         return member;
     }
+
+    public static Member createReceivedMember() {
+        Member member = Member.builder()
+                .username("fdsfds")
+                .name("fdsfsdf")
+                .password("12346")
+                .role(Role.ROLE_USER)
+                .nickname("nickname")
+                .build();
+        return member;
+    }
 }
