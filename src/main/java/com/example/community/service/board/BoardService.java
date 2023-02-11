@@ -112,7 +112,7 @@ public class BoardService {
             return addLike(board, member);
         }
         board.decreaseLikeCount();
-        return cancelFavorite(board, member);
+        return cancelLike(board, member);
     }
 
     @Transactional
