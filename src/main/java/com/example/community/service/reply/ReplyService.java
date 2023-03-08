@@ -14,6 +14,7 @@ import com.example.community.repository.BoardRepository;
 import com.example.community.repository.ReplyRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,10 +28,10 @@ public class ReplyService {
     @Transactional(readOnly = true)
     public List<ReplyResponseDto> findAllReplies(ReplyReadNumber readNumber) {
         List<Reply> replies = replyRepository.findAllByBoardId(readNumber.getBoardId());
-        List<ReplyResponseDto> allReplies = new ArrayList<>();
-        for(Reply reply : replies) {
-            allReplies.add(ReplyResponseDto.toDto(reply));
-        }
+        List<ReplyResponseDto> allReplies = replies.stream()
+                .map(ReplyResponseDto::toDto)
+                .collect(Collectors.toList());
+
         return allReplies;
     }
 

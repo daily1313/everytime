@@ -97,10 +97,9 @@ public class BoardService {
     //게시글 키워드로 검색
     public List<BoardSimpleResponseDto> searchBoard(String keyword, Pageable pageable) {
         Page<Board> boards = boardRepository.findAllByTitleContaining(keyword, pageable);
-        List<BoardSimpleResponseDto> allBoards = new ArrayList<>();
-        for (Board board : boards) {
-            allBoards.add(BoardSimpleResponseDto.toDto(board));
-        }
+        List<BoardSimpleResponseDto> allBoards = boards.stream()
+                .map(BoardSimpleResponseDto::toDto)
+                .collect(toList());
         return allBoards;
     }
 

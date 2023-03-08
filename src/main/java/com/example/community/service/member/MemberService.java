@@ -9,6 +9,7 @@ import com.example.community.exception.UserNotFoundException;
 import com.example.community.repository.MemberRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,11 +24,10 @@ public class MemberService {
     @Transactional(readOnly = true)
     public List<MemberResponseDto> findAllMembers() {
         List<Member> members = memberRepository.findAll();
-        List<MemberResponseDto> allMembers = new ArrayList<>();
+        List<MemberResponseDto> allMembers = members.stream()
+                .map(MemberResponseDto::toDto)
+                .collect(Collectors.toList());
 
-        for(Member member : members) {
-            allMembers.add(MemberResponseDto.toDto(member));
-        }
         return allMembers;
     }
 
